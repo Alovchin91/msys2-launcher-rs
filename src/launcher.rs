@@ -15,7 +15,7 @@ pub fn launch<T: MSystem>() -> Result<()> {
 
     let config: Config = toml::from_str(&config_toml)?;
 
-    let shell = T::get_config_branch(&config)
+    let shell = T::get_config_branch(&config)?
         .shell()
         .trim_start_matches::<&[_]>(&['\\', '/'])
         .replace('/', "\\");

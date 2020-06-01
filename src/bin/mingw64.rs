@@ -4,7 +4,7 @@ use msys2_launcher::{Config, MSystem, Options};
 struct Mingw64;
 
 impl MSystem for Mingw64 {
-    fn get_config_branch<'a>(config: &'a Config) -> &'a Options<'a> {
+    fn get_config_branch<'a>(config: &'a Config) -> Result<&'a Options<'a>> {
         config.mingw64()
     }
 
