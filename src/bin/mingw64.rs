@@ -1,10 +1,10 @@
 use anyhow::Result;
-use msys2_launcher::{Config, MSystem, Options};
+use msys2_launcher::{Config, MSystem, Settings};
 
 struct Mingw64;
 
 impl MSystem for Mingw64 {
-    fn get_config_branch<'a>(config: &'a Config) -> Result<&'a Options<'a>> {
+    fn get_config_branch<'a>(config: &'a Config) -> Result<&'a Settings<'a>> {
         config.mingw64()
     }
 
