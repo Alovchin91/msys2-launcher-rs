@@ -1,10 +1,8 @@
+use crate::{Config, MSystem};
 use anyhow::{anyhow, Context, Result};
 use std::process::Command;
 
-mod config;
-use config::Config;
-
-fn main() -> Result<()> {
+pub fn launch<T: MSystem>() -> Result<()> {
     let launcher_exe = std::env::current_exe().context("Could not determine executable path.")?;
 
     let launcher_dir = launcher_exe
@@ -17,8 +15,7 @@ fn main() -> Result<()> {
 
     let config: Config = toml::from_str(&config_toml)?;
 
-    let shell = config
-        .mingw64()
+    let shell = T::get_config_branch(&config)
         .shell()
         .trim_start_matches::<&[_]>(&['\\', '/'])
         .replace('/', "\\");
@@ -32,7 +29,7 @@ fn main() -> Result<()> {
         ));
     }
 
-    std::env::set_var("MSYSTEM", "MINGW64");
+    std::env::set_var("MSYSTEM", T::get_msystem_string());
 
     let shell_status = Command::new(shell_path).args(&["--login"]).status()?;
 

@@ -1,5 +1,5 @@
 [package]
-name = "msys2-launcher-rs"
+name = "msys2-launcher"
 version = "0.1.0"
 authors = ["Alexander Ovchinnikov"]
 edition = "2018"
