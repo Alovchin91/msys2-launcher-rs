@@ -31,7 +31,18 @@ pub fn launch<T: MSystem>() -> Result<()> {
 
     std::env::set_var("MSYSTEM", T::get_msystem_string());
 
-    let shell_status = Command::new(shell_path).args(&["--login"]).status()?;
+    let mut shell_child = Command::new(shell_path).args(&["--login"]).spawn()?;
+
+    free_console();
+    let shell_status = shell_child.wait()?;
 
     std::process::exit(shell_status.code().unwrap_or(0))
+}
+
+fn free_console() -> bool {
+    extern "system" {
+    fn FreeConsole() -> std::os::raw::c_int;
+    }
+
+    unsafe { FreeConsole() != 0 }
 }
