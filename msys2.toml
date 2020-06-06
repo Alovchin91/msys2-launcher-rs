@@ -1,2 +1,8 @@
 [mingw64]
 shell = "/usr/bin/bash"
+
+[mingw32]
+shell = "/usr/bin/bash"
+
+[msys2]
+shell = "/usr/bin/bash"
