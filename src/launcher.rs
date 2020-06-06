@@ -43,6 +43,7 @@ pub fn launch<T: MSystem>() -> Result<()> {
 }
 
 fn free_console() -> bool {
+    #[cfg(windows)]
     extern "system" {
     fn FreeConsole() -> std::os::raw::c_int;
     }
