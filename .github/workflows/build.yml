@@ -1,0 +1,42 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Install mingw64
+      run: sudo apt-get install -y mingw-w64
+      
+    - name: Install Rust Windows GNU toolchain
+      run: rustup target add x86_64-pc-windows-gnu --toolchain stable
+      
+    - name: Build
+      env:
+        RUSTFLAGS: "-C link-args=-Wl,--strip-debug"
+      run: cargo build --release --verbose
+      
+    - name: Prepare build artifacts
+      run: |
+        mkdir ${{ github.workspace }}/artifacts
+        \cp ${{ github.workspace }}/target/x86_64-pc-windows-gnu/release/mingw64.exe ${{ github.workspace }}/artifacts/
+        \cp ${{ github.workspace }}/target/x86_64-pc-windows-gnu/release/mingw32.exe ${{ github.workspace }}/artifacts/
+        \cp ${{ github.workspace }}/target/x86_64-pc-windows-gnu/release/msys2.exe ${{ github.workspace }}/artifacts/
+        \cp ${{ github.workspace }}/msys2.toml ${{ github.workspace }}/artifacts/
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: msys2-launcher-rs
+        path: ${{ github.workspace }}/artifacts/
