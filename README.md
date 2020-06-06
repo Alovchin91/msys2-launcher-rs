@@ -4,6 +4,16 @@ This project is heavily inspired by the original [MSYS2 Launcher](https://github
 
 `msys2-launcher-rs` provides a set of executables for launching MSYS2 shell for different MSYSTEM's.
 
+## Purpose
+
+The original [MSYS2 Launcher](https://github.com/msys2/msys2-launcher) provides the ability to run MSYS2 shell within MinTTY terminal emulator.
+
+Unfortunately, it doesn't play well with the alternative terminal emulators, like Alacritty, Hyper or Windows Terminal. The situation with the Windows Terminal at the time of writing is even more complicated, as it does not support specifying environment variables for profiles yet. This leaves the users of the Windows Terminal with a single option of using `msys2_shell.cmd` as a launcher.
+
+The purpose of this project is to provide an alternative to the original MSYS2 Launcher which can be used from different terminal emulators, mainly the [Windows Terminal](https://github.com/microsoft/terminal).
+
+Besides, I wanted to do a small project in Rust that would also be useful for myself. So here it goes :smile:
+
 ## Build & Install
 
 To build, simply run `cargo build` (add `--release` for the release build) in the project directory.
