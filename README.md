@@ -6,7 +6,9 @@ This project is heavily inspired by the original [MSYS2 Launcher](https://github
 
 ## Build & Install
 
-To build, just run `cargo build --release` in the project directory. You can also use `build-release.sh` which additionally strips debug symbols from the release build to make the executables considerably smaller.
+To build, simply run `cargo build` (add `--release` for the release build) in the project directory.
+
+To get the release build, you can also use artifacts from GitHub Actions. The Action additionally strips debug symbols from the resulting binaries which makes them considerably smaller.
 
 Then copy `msys2.toml` and one or more of `msys2.exe`, `mingw32.exe` and `mingw64.exe` executables to the MSYS2 root directory.
 
