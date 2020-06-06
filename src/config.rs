@@ -2,23 +2,18 @@ use anyhow::{anyhow, Result};
 use serde::Deserialize;
 
 #[derive(Deserialize)]
-pub struct Config<'a> {
-    #[serde(borrow)]
-    mingw64: Option<Settings<'a>>,
-
-    #[serde(borrow)]
-    mingw32: Option<Settings<'a>>,
-
-    #[serde(borrow)]
-    msys2: Option<Settings<'a>>,
+pub struct Config {
+    mingw64: Option<Settings>,
+    mingw32: Option<Settings>,
+    msys2: Option<Settings>,
 }
 
 #[derive(Deserialize)]
-pub struct Settings<'a> {
-    shell: &'a str,
+pub struct Settings {
+    shell: String,
 }
 
-impl<'a> Config<'a> {
+impl Config {
     pub fn mingw64(&self) -> Result<&Settings> {
         self.mingw64
             .as_ref()
@@ -38,8 +33,8 @@ impl<'a> Config<'a> {
     }
 }
 
-impl<'a> Settings<'a> {
+impl Settings {
     pub fn shell(&self) -> &str {
-        self.shell
+        &self.shell
     }
 }

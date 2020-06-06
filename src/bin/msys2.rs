@@ -4,7 +4,7 @@ use msys2_launcher::{Config, MSystem, Settings};
 struct Msys2;
 
 impl MSystem for Msys2 {
-    fn get_config_branch<'a>(config: &'a Config) -> Result<&'a Settings<'a>> {
+    fn get_config_branch(config: &Config) -> Result<&Settings> {
         config.msys2()
     }
 
