@@ -33,7 +33,7 @@ jobs:
         \cp ${{ github.workspace }}/target/x86_64-pc-windows-gnu/release/mingw64.exe ${{ github.workspace }}/artifacts/
         \cp ${{ github.workspace }}/target/x86_64-pc-windows-gnu/release/mingw32.exe ${{ github.workspace }}/artifacts/
         \cp ${{ github.workspace }}/target/x86_64-pc-windows-gnu/release/msys2.exe ${{ github.workspace }}/artifacts/
-        \cp ${{ github.workspace }}/msys2.toml ${{ github.workspace }}/artifacts/
+        \cp ${{ github.workspace }}/msys2.yml ${{ github.workspace }}/artifacts/
         
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
