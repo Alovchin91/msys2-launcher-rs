@@ -9,11 +9,14 @@ pub fn launch<T: MSystem>() -> Result<()> {
         .parent()
         .context("Could not find root directory.")?;
 
-    let config_file = launcher_dir.join("msys2.toml");
-    let config_toml =
-        std::fs::read_to_string(config_file).context("Could not find msys2.toml config file.")?;
+    let config: Config = {
+        let config_file = launcher_dir.join("msys2.yml");
+        let config_yaml =
+            std::fs::File::open(config_file).context("Could not open msys2.yml config file.")?;
 
-    let config: Config = toml::from_str(&config_toml)?;
+        serde_yaml::from_reader(config_yaml)
+            .context("Could not read config from msys2.yml file.")?
+    };
 
     let shell = T::get_config_branch(&config)?
         .shell()
