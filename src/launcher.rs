@@ -18,7 +18,9 @@ pub fn launch<T: MSystem>() -> Result<()> {
             .context("Could not read config from msys2.yml file.")?
     };
 
-    let shell = T::get_config_branch(&config)?
+    let config_settings = T::get_config_branch(&config)?;
+
+    let shell = config_settings
         .shell()
         .trim_start_matches::<&[_]>(&['\\', '/'])
         .replace('/', "\\");
@@ -34,6 +36,10 @@ pub fn launch<T: MSystem>() -> Result<()> {
 
     std::env::set_var("MSYSTEM", T::get_msystem_string());
 
+    for (env_name, env_var) in config_settings.env() {
+        std::env::set_var(env_name, env_var);
+    }
+
     let mut shell_child = Command::new(shell_path).args(&["--login"]).spawn()?;
 
     free_console();
@@ -45,7 +51,7 @@ pub fn launch<T: MSystem>() -> Result<()> {
 fn free_console() -> bool {
     #[cfg(windows)]
     extern "system" {
-    fn FreeConsole() -> std::os::raw::c_int;
+        fn FreeConsole() -> std::os::raw::c_int;
     }
 
     unsafe { FreeConsole() != 0 }
