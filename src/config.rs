@@ -1,4 +1,5 @@
 use anyhow::{anyhow, Result};
+use itertools::Itertools;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -11,6 +12,7 @@ pub struct Config {
 #[derive(Deserialize)]
 pub struct Settings {
     shell: String,
+    env: Option<Vec<String>>,
 }
 
 impl Config {
@@ -36,5 +38,13 @@ impl Config {
 impl Settings {
     pub fn shell(&self) -> &str {
         &self.shell
+    }
+
+    pub fn env(&self) -> Vec<(&str, &str)> {
+        self.env
+            .iter()
+            .flatten()
+            .filter_map(|v| v.splitn(2, '=').collect_tuple())
+            .collect()
     }
 }
