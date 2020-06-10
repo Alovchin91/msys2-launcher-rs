@@ -1,8 +1,15 @@
 mingw64:
   shell: /usr/bin/bash
+  # env:
 
 mingw32:
   shell: /usr/bin/bash
+  # env:
 
 msys2:
   shell: /usr/bin/bash
+  # env:
+  #   - MSYS=winsymlinks:nativestrict
+  #   - MSYS=error_start:mingw64/bin/qtcreator.exe|-debug|<process-id>
+  #   - CHERE_INVOKING=1
+  #   - MSYS2_PATH_TYPE=inherit
