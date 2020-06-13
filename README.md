@@ -33,9 +33,14 @@ For example, if you only use `mingw64.exe`, your configuration file might look l
 ```yaml
 mingw64:
   shell: /usr/bin/bash
+  env:
+    - MSYS=winsymlinks:nativestrict
+    - MSYS2_PATH_TYPE=inherit
 ```
 
 `shell` is the required parameter. The path must be relative to the launcher directory (MSYS2 root).
+
+`env` is an optional parameter. It specifies a list of additional environment variables to set for the shell.
 
 ## Contributing
 
