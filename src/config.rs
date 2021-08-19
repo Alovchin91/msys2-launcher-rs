@@ -14,24 +14,20 @@ pub struct Settings {
     env: Option<Vec<String>>,
 }
 
+macro_rules! config_getter {
+    ($msystem:ident) => {
+        pub fn $msystem(&self) -> Result<&Settings> {
+            self.$msystem
+                .as_ref()
+                .ok_or_else(|| anyhow!("{} config is missing.", stringify!($msystem)))
+        }
+    };
+}
+
 impl Config {
-    pub fn mingw64(&self) -> Result<&Settings> {
-        self.mingw64
-            .as_ref()
-            .ok_or_else(|| anyhow!("mingw64 config is missing."))
-    }
-
-    pub fn mingw32(&self) -> Result<&Settings> {
-        self.mingw32
-            .as_ref()
-            .ok_or_else(|| anyhow!("mingw32 config is missing."))
-    }
-
-    pub fn msys2(&self) -> Result<&Settings> {
-        self.msys2
-            .as_ref()
-            .ok_or_else(|| anyhow!("msys config is missing."))
-    }
+    config_getter! { mingw64 }
+    config_getter! { mingw32 }
+    config_getter! { msys2 }
 }
 
 impl Settings {
