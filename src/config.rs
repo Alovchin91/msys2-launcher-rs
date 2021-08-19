@@ -1,5 +1,4 @@
 use anyhow::{anyhow, Result};
-use itertools::Itertools;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -44,7 +43,7 @@ impl Settings {
         self.env
             .iter()
             .flatten()
-            .filter_map(|v| v.splitn(2, '=').collect_tuple())
+            .filter_map(|v| v.split_once('='))
             .collect()
     }
 }
