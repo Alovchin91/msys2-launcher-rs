@@ -1,18 +1,7 @@
-use anyhow::Result;
-use msys2_launcher::{Config, MSystem, Settings};
+use msys2_launcher::define_msystem_bin;
 
-struct Mingw64;
-
-impl MSystem for Mingw64 {
-    fn get_config_branch(config: &Config) -> Result<&Settings> {
-        config.mingw64()
-    }
-
-    fn get_msystem_string() -> &'static str {
-        "MINGW64"
-    }
-}
-
-fn main() -> Result<()> {
-    msys2_launcher::launch::<Mingw64>()
+define_msystem_bin! {
+    Mingw64,
+    mingw64,
+    "MINGW64"
 }
