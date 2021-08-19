@@ -1,11 +1,3 @@
-mingw64:
-  shell: /usr/bin/bash
-  # env:
-
-mingw32:
-  shell: /usr/bin/bash
-  # env:
-
 msys2:
   shell: /usr/bin/bash
   # env:
@@ -13,3 +5,23 @@ msys2:
   #   - MSYS=error_start:mingw64/bin/qtcreator.exe|-debug|<process-id>
   #   - CHERE_INVOKING=1
   #   - MSYS2_PATH_TYPE=inherit
+
+mingw64:
+  shell: /usr/bin/bash
+  # env:
+
+ucrt64:
+  shell: /usr/bin/bash
+  # env:
+
+clang64:
+  shell: /usr/bin/bash
+  # env:
+
+clangarm64:
+  shell: /usr/bin/bash
+  # env:
+
+mingw32:
+  shell: /usr/bin/bash
+  # env:

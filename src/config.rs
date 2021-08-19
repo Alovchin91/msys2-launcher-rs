@@ -3,9 +3,12 @@ use serde::Deserialize;
 
 #[derive(Deserialize)]
 pub struct Config {
-    mingw64: Option<Settings>,
-    mingw32: Option<Settings>,
     msys2: Option<Settings>,
+    mingw64: Option<Settings>,
+    ucrt64: Option<Settings>,
+    clang64: Option<Settings>,
+    clangarm64: Option<Settings>,
+    mingw32: Option<Settings>,
 }
 
 #[derive(Deserialize)]
@@ -25,9 +28,12 @@ macro_rules! config_getter {
 }
 
 impl Config {
-    config_getter! { mingw64 }
-    config_getter! { mingw32 }
     config_getter! { msys2 }
+    config_getter! { mingw64 }
+    config_getter! { ucrt64 }
+    config_getter! { clang64 }
+    config_getter! { clangarm64 }
+    config_getter! { mingw32 }
 }
 
 impl Settings {
